@@ -1,0 +1,16 @@
+name: Run PSScriptAnalyzer
+
+on:
+  pull_request:
+
+jobs:
+  psscriptanalyzer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run PSScriptAnalyzer on PowerShell Scripts
+        shell: pwsh
+        run: |
+          Invoke-ScriptAnalyzer -Path ./PSIdentityNow/ -Recurse -EnableExit
