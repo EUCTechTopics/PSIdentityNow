@@ -1,0 +1,22 @@
+name: Branch Validation
+
+on:
+  pull_request_target:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - edited
+    branches:
+      - main
+
+jobs:
+  run-branch-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Source Branch
+        run: |
+          if [ "${{ github.head_ref }}" != "next" ]; then
+            echo "Merge requests to main branch are only allowed from the next branch."
+            exit 1
+          fi

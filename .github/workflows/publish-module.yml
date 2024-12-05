@@ -1,4 +1,5 @@
-name: Publish
+name: Publish to PowerShell Gallery
+
 on: [workflow_dispatch]
 
 jobs:
@@ -7,6 +8,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v1
+        
         - name: Publish
           env:
             NUGET_API_KEY: ${{ secrets.NUGET_API_KEY }}
