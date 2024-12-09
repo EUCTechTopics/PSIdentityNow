@@ -58,9 +58,9 @@ function Get-IDNWEnvironment {
     switch ($Instance.ToLower()) {
         { "sandbox", "acc" -contains $_ } {
             if ($UseSecrets) {
-                $sail_base_url = Get-Secret -Name 'idnw-acc-base-url' -AsPlainText
-                $sail_client_id = Get-Secret -Name 'idnw-acc-client-id' -AsPlainText
-                $sail_client_secret = Get-Secret -Name 'idnw-acc-client-secret'
+                $sail_base_url = Get-Secret -Name 'IDNW-ACC-BASE-URL' -AsPlainText
+                $sail_client_id = Get-Secret -Name 'IDNW-ACC-CLIENT-ID' -AsPlainText
+                $sail_client_secret = Get-Secret -Name 'IDNW-ACC-CLIENT-SECRET'
             }
             else {
                 $sail_base_url = $env:IDNW_ACC_BASE_URL
@@ -70,9 +70,9 @@ function Get-IDNWEnvironment {
         }
         "prd" {
             if ($UseSecrets) {
-                $sail_base_url = Get-Secret -Name 'IDNW_PRD_BASE_URL' -AsPlainText
-                $sail_client_id = Get-Secret -Name 'IDNW_PRD_CLIENT_ID' -AsPlainText
-                $sail_client_secret = Get-Secret -Name 'IDNW_PRD_CLIENT_SECRET'
+                $sail_base_url = Get-Secret -Name 'IDNW-PRD-BASE-URL' -AsPlainText
+                $sail_client_id = Get-Secret -Name 'IDNW-PRD-CLIENT-ID' -AsPlainText
+                $sail_client_secret = Get-Secret -Name 'IDNW-PRD-CLIENT-SECRET'
             }
             else {
                 $sail_base_url = $env:IDNW_PRD_BASE_URL
