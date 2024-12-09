@@ -57,7 +57,7 @@ function Get-IDNWEnvironment {
     # Determine correct set of secrets for session
     switch ($Instance.ToLower()) {
         { "sandbox", "acc" -contains $_ } {
-                $sail_base_url = Get-IDNWSecret -Name 'idnw-acc-base-url' -AsPlainText -UseSecrets:$UseSecrets
+                $sail_base_url = Get-IDNWSecret -Name 'IDNW-ACC-BASE-URL' -AsPlainText -UseSecrets:$UseSecrets
                 $sail_client_id = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-ID' -AsPlainText -UseSecrets:$UseSecrets
                 $sail_client_secret = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-SECRET'-UseSecrets:$UseSecrets
         }
