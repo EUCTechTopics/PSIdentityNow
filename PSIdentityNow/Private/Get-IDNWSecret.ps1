@@ -33,10 +33,13 @@ function Get-IDNWSecret {
         try {
             return Get-Secret -Name $Name -AsPlainText:$AsPlainText
         }
-        catch {
+        catch [System.Management.Automation.ItemNotFoundException] {
             Write-Verbose "Secret $Name not found. Attempting to retrieve secret in lowercase."
             return Get-Secret -Name $Name.ToLower() -AsPlainText:$AsPlainText
             throw "Secret $Name not found."
+        }
+        catch {
+            throw $_
         }
     } else {
         # Try both original and lowercase formatted versions
