@@ -96,13 +96,6 @@ function Get-IDNWEnvironment {
             $missing += $key
         }
     }
-    # Collect missing variables
-    $missing = @()
-    foreach ($key in $variables.Keys) {
-        if ([string]::IsNullOrEmpty($variables[$key])) {
-            $missing += $key
-        }
-    }
     # Throw an error if any variables are missing
     if ($missing.Count -gt 0) {
         throw "The following variables are missing: $($missing -join ', ')"
