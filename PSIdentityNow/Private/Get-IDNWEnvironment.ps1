@@ -117,7 +117,15 @@ function Get-IDNWEnvironment {
     $Params = @{
         token_url           = $sessiontokendata.token_url
         token_client_id     = $sessiontokendata.token_client_id
-        token_client_secret = ConvertFrom-SecureString $sessiontokendata.token_client_secret -AsPlainText
+    }
+    switch ($UseSecrets) {
+        $true {
+            $token_client_secret = ConvertFrom-SecureString $sessiontokendata.token_client_secret -AsPlainText
+            $Params.Add('token_client_secret', $token_client_secret)
+        }
+        $false {
+            $Params.Add('token_client_secret', $sessiontokendata.token_client_secret)
+        }
     }
     $SessionToken = Get-IDNWSessionToken @Params
     Remove-Variable -Name Params -Force
