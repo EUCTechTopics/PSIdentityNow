@@ -21,7 +21,8 @@
         None
 
     .OUTPUTS
-        PSCustomObject
+        System.String
+        System.Securiy.SecureString
 #>
 function Get-IDNWSecret {
     param (

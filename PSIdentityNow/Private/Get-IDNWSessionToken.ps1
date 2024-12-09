@@ -21,7 +21,7 @@
         None
 
     .OUTPUTS
-        System.SecureString
+        System.Security.SecureString
 #>
 
 function Get-IDNWSessionToken {
