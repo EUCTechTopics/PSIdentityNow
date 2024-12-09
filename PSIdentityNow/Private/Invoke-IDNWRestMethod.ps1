@@ -78,9 +78,11 @@ function Invoke-IDNWRestMethod {
     Test-IDNWConnection
 
     # Create authorization header
+    $Token = ConvertFrom-SecureString $script:IDNWEnv.SessionToken -AsPlainText
     $Headers = @{
-        Authorization = ('Bearer {0}' -f $script:IDNWEnv.SessionToken)
+        Authorization = "Bearer $Token"
     }
+    Remove-Variable -Name Token -Force
 
     # Add application/json-patch+json content-type for PATCH requests
     if ($Method -eq "PATCH") {
@@ -184,6 +186,7 @@ function Invoke-IDNWRestMethod {
                 }
                 else {
                     $SendCall = $false
+                    Remove-Variable -Name Headers -Force
                     throw "Failed to retrieve data after $RetryCount attempts."
                 }
             }
@@ -197,4 +200,5 @@ function Invoke-IDNWRestMethod {
 
     # Return all results
     Write-Output $AllResults
+    Remove-Variable -Name Headers -Force
 }

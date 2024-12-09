@@ -35,20 +35,50 @@ function Get-IDNWEnvironment {
         [Parameter(Mandatory = $true)]
         [ValidateSet("v3", "v2024", "beta")]
         [String]
-        $APIVersion
+        $APIVersion,
+
+        [Parameter(Mandatory = $true)]
+        [Switch]
+        $UseSecrets = $false
     )
+
+    switch ($UseSecrets) {
+        $true {
+            Write-Verbose "Using Secrets Management module to retrieve secrets"
+            if (-not (Get-Command -Name Get-Secret -ErrorAction SilentlyContinue)) {
+                throw "Get-Secret function not available. Please import the SecretManagement module"
+            }
+        }
+        $false {
+            Write-Verbose "Using Environment Variables to retrieve secrets"
+        }
+    }
 
     # Determine correct set of secrets for session
     switch ($Instance.ToLower()) {
         { "sandbox", "acc" -contains $_ } {
-            $sail_base_url = $env:IDNW_ACC_BASE_URL
-            $sail_client_id = $env:IDNW_ACC_CLIENT_ID
-            $sail_client_secret = $env:IDNW_ACC_CLIENT_SECRET
+            if ($UseSecrets) {
+                $sail_base_url = Get-Secret -Name 'idnw-acc-base-url' -AsPlainText
+                $sail_client_id = Get-Secret -Name 'idnw-acc-client-id' -AsPlainText
+                $sail_client_secret = Get-Secret -Name 'idnw-acc-client-secret'
+            }
+            else {
+                $sail_base_url = $env:IDNW_ACC_BASE_URL
+                $sail_client_id = $env:IDNW_ACC_CLIENT_ID
+                $sail_client_secret = $env:IDNW_ACC_CLIENT_SECRET
+            }
         }
-        'prd' {
-            $sail_base_url = $env:IDNW_PRD_BASE_URL
-            $sail_client_id = $env:IDNW_PRD_CLIENT_ID
-            $sail_client_secret = $env:IDNW_PRD_CLIENT_SECRET
+        "prd" {
+            if ($UseSecrets) {
+                $sail_base_url = Get-Secret -Name 'IDNW_PRD_BASE_URL' -AsPlainText
+                $sail_client_id = Get-Secret -Name 'IDNW_PRD_CLIENT_ID' -AsPlainText
+                $sail_client_secret = Get-Secret -Name 'IDNW_PRD_CLIENT_SECRET'
+            }
+            else {
+                $sail_base_url = $env:IDNW_PRD_BASE_URL
+                $sail_client_id = $env:IDNW_PRD_CLIENT_ID
+                $sail_client_secret = $env:IDNW_PRD_CLIENT_SECRET
+            }
         }
     }
 
@@ -78,7 +108,6 @@ function Get-IDNWEnvironment {
         throw "The following variables are missing: $($missing -join ', ')"
     }
 
-    # Variables are passed from Azure DevOps to Powershell via environment variables
     $sessiontokendata = @{
         token_url           = "$sail_base_url/oauth/token"
         token_client_id     = $sail_client_id
@@ -88,10 +117,11 @@ function Get-IDNWEnvironment {
     $Params = @{
         token_url           = $sessiontokendata.token_url
         token_client_id     = $sessiontokendata.token_client_id
-        token_client_secret = $sessiontokendata.token_client_secret
+        token_client_secret = ConvertFrom-SecureString $sessiontokendata.token_client_secret -AsPlainText
     }
     $SessionToken = Get-IDNWSessionToken @Params
-    $SessionTokenDetails = Get-IDNWTokenDetail -Token $SessionToken
+    Remove-Variable -Name Params -Force
+    $SessionTokenDetails = Get-IDNWTokenDetail -SecureToken $SessionToken
 
     $output = [PSCustomObject]@{
         Instance            = $Instance

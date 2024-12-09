@@ -28,10 +28,11 @@ function Get-IDNWTokenDetail {
     [CmdletBinding()]
     param (
         [Parameter()]
-        [String]
-        $Token
+        [SecureString]
+        $SecureToken
     )
 
+    $token = ConvertFrom-SecureString $SecureToken -AsPlainText
     if (!$token.Contains(".") -or !$token.StartsWith("eyJ")) { throw "Invalid token" }
 
     # Token
@@ -74,5 +75,6 @@ function Get-IDNWTokenDetail {
     $timeToExpiry = ($localTime - (get-date))
     $decodedToken | Add-Member -Type NoteProperty -Name "timeToExpiry" -Value $timeToExpiry
 
+    Remove-Variable -Name token -Force
     return $decodedToken
 }
