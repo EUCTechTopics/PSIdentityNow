@@ -46,7 +46,7 @@ function Get-IDNWEnvironment {
         $true {
             Write-Verbose "Using Secrets Management module to retrieve secrets"
             if (-not (Get-Command -Name Get-Secret -ErrorAction SilentlyContinue)) {
-                throw "Get-Secret function not available. Please import the SecretManagement module"
+                throw "Get-Secret function not available. Please import the Microsoft.PowerShell.SecretManagement module."
             }
         }
         $false {
