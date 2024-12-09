@@ -1,0 +1,58 @@
+<#
+    .SYNOPSIS
+        Get the secret value for the specified secret name.
+
+    .DESCRIPTION
+        This function gets the secret value for the specified secret name. The function will return the secret value as a string.
+
+    .EXAMPLE
+        Get-IDNWSecret -Name 'idnw-acc-base-url'
+
+    .PARAMETER Name
+        The name of the secret to retrieve.
+
+    .PARAMETER AsPlainText
+        Defines how the secret value should be retrieved.
+
+    .PARAMETER UseSecrets
+        Use the Secrets Management module to retrieve the secret.
+
+    .INPUTS
+        None
+
+    .OUTPUTS
+        PSCustomObject
+#>
+function Get-IDNWSecret {
+    param (
+        [string]$Name,
+        [switch]$AsPlainText = $false,
+        [switch]$UseSecrets = $false
+    )
+    if ($UseSecrets) {
+        try {
+            return Get-Secret -Name $Name -AsPlainText:$AsPlainText
+        }
+        catch {
+            Write-Verbose "Secret $Name not found. Attempting to retrieve secret in lowercase."
+            return Get-Secret -Name $Name.ToLower() -AsPlainText:$AsPlainText
+            throw "Secret $Name not found."
+        }
+    } else {
+        # Try both original and lowercase formatted versions
+        $formattedNames = @(
+            $name.ToUpper().Replace('-', '_'),
+            $name.ToLower().Replace('-', '_')
+        )
+
+        foreach ($formattedName in $formattedNames) {
+            $value = [environment]::GetEnvironmentVariable($formattedName)
+            if (-not [string]::IsNullOrEmpty($value)) {
+                return $value
+            }
+        }
+
+        throw "Secret $Name not found."
+
+    }
+}

@@ -57,22 +57,15 @@ function Get-IDNWEnvironment {
     # Determine correct set of secrets for session
     switch ($Instance.ToLower()) {
         { "sandbox", "acc" -contains $_ } {
-            if ($UseSecrets) {
-                $sail_base_url = Get-Secret -Name 'IDNW-ACC-BASE-URL' -AsPlainText
-                $sail_client_id = Get-Secret -Name 'IDNW-ACC-CLIENT-ID' -AsPlainText
-                $sail_client_secret = Get-Secret -Name 'IDNW-ACC-CLIENT-SECRET'
-            }
-            else {
-                $sail_base_url = $env:IDNW_ACC_BASE_URL
-                $sail_client_id = $env:IDNW_ACC_CLIENT_ID
-                $sail_client_secret = $env:IDNW_ACC_CLIENT_SECRET
-            }
+                $sail_base_url = Get-IDNWSecret -Name 'idnw-acc-base-url' -AsPlainText -UseSecrets:$UseSecrets
+                $sail_client_id = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-ID' -AsPlainText -UseSecrets:$UseSecrets
+                $sail_client_secret = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-SECRET'-UseSecrets:$UseSecrets
         }
         "prd" {
             if ($UseSecrets) {
-                $sail_base_url = Get-Secret -Name 'IDNW-PRD-BASE-URL' -AsPlainText
-                $sail_client_id = Get-Secret -Name 'IDNW-PRD-CLIENT-ID' -AsPlainText
-                $sail_client_secret = Get-Secret -Name 'IDNW-PRD-CLIENT-SECRET'
+                $sail_base_url = Get-IDNWSecret -Name 'IDNW-PRD-BASE-URL' -AsPlainText
+                $sail_client_id = Get-IDNWSecret -Name 'IDNW-PRD-CLIENT-ID' -AsPlainText
+                $sail_client_secret = Get-IDNWSecret -Name 'IDNW-PRD-CLIENT-SECRET'
             }
             else {
                 $sail_base_url = $env:IDNW_PRD_BASE_URL
