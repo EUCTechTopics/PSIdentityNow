@@ -37,7 +37,7 @@ function New-IDNWObject {
     ]
     param (
         [Parameter(Mandatory = $True)]
-        [ValidateSet("access-profiles", "roles", "segments")]
+        [ValidateSet("access-profiles", "roles", "public-identities", "requestable-objects", "segments",)]
         [String]
         $ObjectType,
 
