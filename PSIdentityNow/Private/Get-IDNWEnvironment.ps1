@@ -39,10 +39,10 @@ function Get-IDNWEnvironment {
 
         [Parameter(Mandatory = $true)]
         [Switch]
-        $UseSecrets = $false
+        $UseSecretManagement = $false
     )
 
-    switch ($UseSecrets) {
+    switch ($UseSecretManagement) {
         $true {
             Write-Verbose "Using Secrets Management module to retrieve secrets"
             if (-not (Get-Command -Name Get-Secret -ErrorAction SilentlyContinue)) {
@@ -57,12 +57,12 @@ function Get-IDNWEnvironment {
     # Determine correct set of secrets for session
     switch ($Instance.ToLower()) {
         { "sandbox", "acc" -contains $_ } {
-                $sail_base_url = Get-IDNWSecret -Name 'IDNW-ACC-BASE-URL' -AsPlainText -UseSecrets:$UseSecrets
-                $sail_client_id = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-ID' -AsPlainText -UseSecrets:$UseSecrets
-                $sail_client_secret = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-SECRET'-UseSecrets:$UseSecrets
+                $sail_base_url = Get-IDNWSecret -Name 'IDNW-ACC-BASE-URL' -AsPlainText -UseSecretManagement:$UseSecretManagement
+                $sail_client_id = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-ID' -AsPlainText -UseSecretManagement:$UseSecretManagement
+                $sail_client_secret = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-SECRET'-UseSecretManagement:$UseSecretManagement
         }
         "prd" {
-            if ($UseSecrets) {
+            if ($UseSecretManagement) {
                 $sail_base_url = Get-IDNWSecret -Name 'IDNW-PRD-BASE-URL' -AsPlainText
                 $sail_client_id = Get-IDNWSecret -Name 'IDNW-PRD-CLIENT-ID' -AsPlainText
                 $sail_client_secret = Get-IDNWSecret -Name 'IDNW-PRD-CLIENT-SECRET'
@@ -104,7 +104,7 @@ function Get-IDNWEnvironment {
         token_url           = $sessiontokendata.token_url
         token_client_id     = $sessiontokendata.token_client_id
     }
-    switch ($UseSecrets) {
+    switch ($UseSecretManagement) {
         $true {
             $token_client_secret = ConvertFrom-SecureString $sessiontokendata.token_client_secret -AsPlainText
             $Params.Add('token_client_secret', $token_client_secret)

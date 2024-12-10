@@ -14,7 +14,7 @@
     .PARAMETER AsPlainText
         Defines how the secret value should be retrieved.
 
-    .PARAMETER UseSecrets
+    .PARAMETER UseSecretManagement
         Use the Secrets Management module to retrieve the secret.
 
     .INPUTS
@@ -28,9 +28,9 @@ function Get-IDNWSecret {
     param (
         [string]$Name,
         [switch]$AsPlainText = $false,
-        [switch]$UseSecrets = $false
+        [switch]$UseSecretManagement = $false
     )
-    if ($UseSecrets) {
+    if ($UseSecretManagement) {
         try {
             return Get-Secret -Name $Name -AsPlainText:$AsPlainText
         }

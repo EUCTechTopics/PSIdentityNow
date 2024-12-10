@@ -43,7 +43,7 @@ function Connect-IDNW {
 
         [Parameter(Mandatory = $false)]
         [Switch]
-        $UseSecrets = $false
+        $UseSecretManagement = $false
     )
 
     switch ($Instance.ToLower()) {
@@ -55,7 +55,7 @@ function Connect-IDNW {
         }
     }
 
-    $script:IDNWEnv = Get-IDNWEnvironment -Instance $Instance -APIVersion $APIVersion -UseSecrets:$UseSecrets
+    $script:IDNWEnv = Get-IDNWEnvironment -Instance $Instance -APIVersion $APIVersion -UseSecretManagement:$UseSecretManagement
     Write-Output @"
 Connected to IdentityNow instance: $Instance
 API Version: $($script:IDNWEnv.APIVersion)
