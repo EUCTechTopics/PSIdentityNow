@@ -221,6 +221,6 @@ function Invoke-IDNWRestMethod {
     } while ($Offset -lt $TotalCount)
 
     # Return all results
-    Write-Output $AllResults
     Remove-Variable -Name Headers -Force
+    Write-Output $AllResults
 }
