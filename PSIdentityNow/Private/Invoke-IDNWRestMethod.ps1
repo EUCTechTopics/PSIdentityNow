@@ -178,6 +178,7 @@ function Invoke-IDNWRestMethod {
                 $SendCall = $false
             }
             catch {
+                # Get the error message
                 try {
                     # Try retrieving .messages[0].text
                     $errorDetails = $_.ErrorDetails | ConvertFrom-Json
