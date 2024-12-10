@@ -178,7 +178,28 @@ function Invoke-IDNWRestMethod {
                 $SendCall = $false
             }
             catch {
-                Write-Error ("HTTP {0} {1}: {2}" -f ($_.Exception.Response.StatusCode.value__), ($_.Exception.Response.StatusCode.ToString()), (($_.ErrorDetails | ConvertFrom-Json).messages[0]).text)
+                try {
+                    # Try retrieving .messages[0].text
+                    $errorDetails = $_.ErrorDetails | ConvertFrom-Json
+                    if ($errorDetails.messages -and $errorDetails.messages[0].text) {
+                        $message = $errorDetails.messages[0].text
+                    }
+                    elseif ($errorDetails.error) {
+                        # Fallback to .error if .messages[0].text is not available
+                        $message = $errorDetails.error
+                    }
+                    else {
+                        # Fallback message if neither is available
+                        $message = "Unknown error occurred"
+                    }
+                }
+                catch {
+                    # In case of failure in parsing JSON or accessing properties
+                    $message = "Error processing error details"
+                }
+
+                # Log the error message
+                Write-Error ("HTTP {0} {1}: {2}" -f ($_.Exception.Response.StatusCode.value__), ($_.Exception.Response.StatusCode.ToString()), $message)
                 if ($_.Exception.Response.StatusCode.value__ -match '^5\d{2}$' -and $RetryCount -lt $MaxRetries) {
                     $RetryCount += 1
                     Write-Verbose "Retry attempt $RetryCount after a $PauseDuration second pause..."
