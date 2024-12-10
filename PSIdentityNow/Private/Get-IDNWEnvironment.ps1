@@ -39,7 +39,7 @@ function Get-IDNWEnvironment {
 
         [Parameter(Mandatory = $true)]
         [Switch]
-        $UseSecretManagement = $false
+        $UseSecretManagement
     )
 
     switch ($UseSecretManagement) {
