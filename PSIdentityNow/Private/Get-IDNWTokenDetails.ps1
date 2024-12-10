@@ -71,10 +71,6 @@ function Get-IDNWTokenDetail {
 
     $decodedToken | Add-Member -Type NoteProperty -Name "expiryDateTime" -Value $localTime
 
-    # Time to Expiry
-    $timeToExpiry = ($localTime - (get-date))
-    $decodedToken | Add-Member -Type NoteProperty -Name "timeToExpiry" -Value $timeToExpiry
-
     Remove-Variable -Name token -Force
     return $decodedToken
 }
