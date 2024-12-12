@@ -93,7 +93,7 @@ function Get-IDNWEnvironment {
             $Params.Add('token_client_secret', $sessiontokendata.token_client_secret)
         }
     }
-    
+
     $SessionToken = Get-IDNWSessionToken @Params
     Remove-Variable -Name Params -Force
     $SessionTokenDetails = Get-IDNWTokenDetail -SecureToken $SessionToken

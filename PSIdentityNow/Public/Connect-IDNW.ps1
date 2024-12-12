@@ -75,7 +75,7 @@ function Connect-IDNW {
     $identityNowInfo = @"
 
 =========================================
-        Connected to IdentityNow         
+        Connected to IdentityNow
 =========================================
 
 Instance:             $Instance
