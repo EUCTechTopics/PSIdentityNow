@@ -5,7 +5,7 @@ Connects to IdentityNow.
 
 ## SYNTAX
 ```
-Connect-IDNW [-Instance] <string> [[-APIVersion] <string>] [<CommonParameters>]
+Connect-IDNW [[-Instance] <string>] [[-APIVersion] <string>] [-UseSecretManagement] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -22,7 +22,7 @@ Connect-IDNW -Instance "Sandbox"
 ### -Instance <String>
 The IdentityNow instance to connect to.
 ```
-Required?                    true
+Required?                    false
 Position?                    1
 Default value                
 Accept pipeline input?       false
@@ -34,6 +34,15 @@ The API version to use when executing API Calls. Default is 'v3'.
 Required?                    false
 Position?                    2
 Default value                v3
+Accept pipeline input?       false
+Accept wildcard characters?  false
+```
+### -UseSecretManagement <SwitchParameter>
+Use Microsoft.PowerShell.SecretManagement to retrieve the IDNW secrets. Default is $false.
+```
+Required?                    false
+Position?                    named
+Default value                False
 Accept pipeline input?       false
 Accept wildcard characters?  false
 ```

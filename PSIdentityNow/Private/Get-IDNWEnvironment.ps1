@@ -26,7 +26,7 @@ function Get-IDNWEnvironment {
         PositionalBinding = $True)
     ]
     param (
-        [Parameter(Mandatory = $true)]
+        [Parameter(Mandatory = $false)]
         [Alias("Environment")]
         [ValidateSet("Sandbox", "ACC", "PRD")]
         [String]
@@ -35,50 +35,44 @@ function Get-IDNWEnvironment {
         [Parameter(Mandatory = $true)]
         [ValidateSet("v3", "v2024", "beta")]
         [String]
-        $APIVersion
+        $APIVersion,
+
+        [Parameter(Mandatory = $true)]
+        [Switch]
+        $UseSecretManagement
     )
+
+    switch ($UseSecretManagement) {
+        $true {
+            Write-Verbose "Using Secrets Management module to retrieve secrets"
+            if (-not (Get-Command -Name Get-Secret -ErrorAction SilentlyContinue)) {
+                throw "Get-Secret function not available. Please import the Microsoft.PowerShell.SecretManagement module."
+            }
+        }
+        $false {
+            Write-Verbose "Using Environment Variables to retrieve secrets"
+        }
+    }
 
     # Determine correct set of secrets for session
     switch ($Instance.ToLower()) {
         { "sandbox", "acc" -contains $_ } {
-            $sail_base_url = $env:IDNW_ACC_BASE_URL
-            $sail_client_id = $env:IDNW_ACC_CLIENT_ID
-            $sail_client_secret = $env:IDNW_ACC_CLIENT_SECRET
+            $sail_base_url = Get-IDNWSecret -Name 'IDNW-ACC-BASE-URL' -AsPlainText -UseSecretManagement:$UseSecretManagement
+            $sail_client_id = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-ID' -AsPlainText -UseSecretManagement:$UseSecretManagement
+            $sail_client_secret = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-SECRET'-UseSecretManagement:$UseSecretManagement
         }
-        'prd' {
-            $sail_base_url = $env:IDNW_PRD_BASE_URL
-            $sail_client_id = $env:IDNW_PRD_CLIENT_ID
-            $sail_client_secret = $env:IDNW_PRD_CLIENT_SECRET
+        "prd" {
+            $sail_base_url = Get-IDNWSecret -Name 'IDNW-PRD-BASE-URL' -AsPlainText -UseSecretManagement:$UseSecretManagement
+            $sail_client_id = Get-IDNWSecret -Name 'IDNW-PRD-CLIENT-ID' -AsPlainText -UseSecretManagement:$UseSecretManagement
+            $sail_client_secret = Get-IDNWSecret -Name 'IDNW-PRD-CLIENT-SECRET'-UseSecretManagement:$UseSecretManagement
+        }
+        default {
+            $sail_base_url = Get-IDNWSecret -Name 'IDNW-BASE-URL' -AsPlainText -UseSecretManagement:$UseSecretManagement
+            $sail_client_id = Get-IDNWSecret -Name 'IDNW-CLIENT-ID' -AsPlainText -UseSecretManagement:$UseSecretManagement
+            $sail_client_secret = Get-IDNWSecret -Name 'IDNW-CLIENT-SECRET'-UseSecretManagement:$UseSecretManagement
         }
     }
 
-    # Checking for empty values
-    # Define a hashtable with variable names and their corresponding values
-    $variables = @{
-        "sail_base_url"      = $sail_base_url
-        "sail_client_id"     = $sail_client_id
-        "sail_client_secret" = $sail_client_secret
-    }
-    # Collect missing variables
-    $missing = @()
-    foreach ($key in $variables.Keys) {
-        if ([string]::IsNullOrEmpty($variables[$key])) {
-            $missing += $key
-        }
-    }
-    # Collect missing variables
-    $missing = @()
-    foreach ($key in $variables.Keys) {
-        if ([string]::IsNullOrEmpty($variables[$key])) {
-            $missing += $key
-        }
-    }
-    # Throw an error if any variables are missing
-    if ($missing.Count -gt 0) {
-        throw "The following variables are missing: $($missing -join ', ')"
-    }
-
-    # Variables are passed from Azure DevOps to Powershell via environment variables
     $sessiontokendata = @{
         token_url           = "$sail_base_url/oauth/token"
         token_client_id     = $sail_client_id
@@ -88,10 +82,21 @@ function Get-IDNWEnvironment {
     $Params = @{
         token_url           = $sessiontokendata.token_url
         token_client_id     = $sessiontokendata.token_client_id
-        token_client_secret = $sessiontokendata.token_client_secret
     }
+
+    switch ($UseSecretManagement) {
+        $true {
+            $token_client_secret = ConvertFrom-SecureString $sessiontokendata.token_client_secret -AsPlainText
+            $Params.Add('token_client_secret', $token_client_secret)
+        }
+        $false {
+            $Params.Add('token_client_secret', $sessiontokendata.token_client_secret)
+        }
+    }
+
     $SessionToken = Get-IDNWSessionToken @Params
-    $SessionTokenDetails = Get-IDNWTokenDetail -Token $SessionToken
+    Remove-Variable -Name Params -Force
+    $SessionTokenDetails = Get-IDNWTokenDetail -SecureToken $SessionToken
 
     $output = [PSCustomObject]@{
         Instance            = $Instance

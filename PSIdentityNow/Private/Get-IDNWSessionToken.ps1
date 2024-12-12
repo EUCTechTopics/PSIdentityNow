@@ -21,7 +21,7 @@
         None
 
     .OUTPUTS
-        System.String
+        System.Security.SecureString
 #>
 
 function Get-IDNWSessionToken {
@@ -54,12 +54,22 @@ function Get-IDNWSessionToken {
 
     try {
         Write-Verbose ('Retrieving session token for IdentityNow from {0}' -f $token_url)
-        $token = (Invoke-RestMethod -Uri $token_url -Method POST -Body $postParams -Verbose:$false -Debug:$false).access_token
+
+        # Retrieve the token from the REST API
+        $token = (Invoke-RestMethod -Uri $token_url -Method POST -Body $postParams).access_token
+
+        # Convert the token to a SecureString without -AsPlainText
+        $secureToken = New-Object -TypeName System.Security.SecureString
+        $token.ToCharArray() | ForEach-Object { $secureToken.AppendChar($_) }
+        $secureToken.MakeReadOnly()
+
+        # Securely remove plaintext token from memory
+        Remove-Variable -Name token -Force -ErrorAction SilentlyContinue
     }
     catch {
         Write-Debug ('Error retrieving session token for IdentityNow from {0}' -f $token_url)
         throw "Unable to retrieve session token from IdentityNow"
     }
 
-    return $token
+    Write-Output $secureToken
 }
