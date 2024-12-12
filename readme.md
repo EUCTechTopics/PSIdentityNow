@@ -43,7 +43,7 @@ To use the SDK with your IdentityNow tenant, you must configure authentication b
 
     Set the following environment variables to authenticate to your IdentityNow tenant:
 
-    ```powershell
+    ``` powershell
     $env:IDNW_ACC_BASE_URL=https://[tenant]-sb.api.identitynow.com
     $env:IDNW_ACC_CLIENT_ID=[clientID]
     $env:IDNW_ACC_CLIENT_SECRET=[clientSecret]
@@ -74,7 +74,7 @@ You can securely store and manage the required credentials in Azure Key Vault an
        AZKVaultName = "KEYVAULT-NAME"
        SubscriptionId = "subscription-id"
    }
-   Register-SecretVault -Name 'KEYVAULT-NAME' -ModuleName Az.KeyVault -VaultParameters $kvparams -Verbose
+   Register-SecretVault -Name 'KEYVAULT-NAME' -ModuleName Az.KeyVault -VaultParameters $kvparams
    ```
 
    Replace `KEYVAULT-NAME` with your Key Vault name and `subscription-id` with your Azure subscription ID.
