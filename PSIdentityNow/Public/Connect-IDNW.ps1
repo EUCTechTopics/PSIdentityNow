@@ -14,6 +14,9 @@
     .PARAMETER APIVersion
         The API version to use when executing API Calls. Default is 'v3'.
 
+    .PARAMETER UseSecretManagement
+        Use Microsoft.PowerShell.SecretManagement to retrieve the IDNW secrets. Default is $false.
+
     .INPUTS
         None
 
