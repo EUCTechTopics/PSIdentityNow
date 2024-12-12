@@ -23,7 +23,7 @@ function Test-IDNWConnection {
     }
 
     # Check if token has expired
-    if (-not ($script:IDNWEnv.SessionTokenDetails.timeToExpiry.TotalSeconds -gt 0)) {
+    if (-not ($script:IDNWEnv.SessionTokenDetails.expiryDateTime -gt (Get-Date))) {
         throw "Access Token has expired, please use Connect-IDNW to reconnect"
     }
 

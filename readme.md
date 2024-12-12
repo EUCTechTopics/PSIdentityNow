@@ -25,6 +25,7 @@ Currently supports the following Objects:
  - access-profiles
  - public-identities
  - roles
+ - requestable-objects
  - segments
 
 ## Installation
@@ -32,19 +33,77 @@ Currently supports the following Objects:
 Install-Module -Name PSIdentityNow -AllowPrerelease
 ```
 
-## Usage
-You must provide configuration to the SDK so that it can authenticate to your IdentityNow tenant and make API calls. 
+### SDK Configuration for Authentication
 
-To do so, you need to configure the following environment variables.
+To use the SDK with your IdentityNow tenant, you must configure authentication by providing the required environment variables or using Azure Key Vault (or another vault) with the Microsoft.PowerShell.SecretManagement module.
 
-```powershell
-$env:IDNW_ACC_BASE_URL=https://[tenant]-sb.api.identitynow.com
-$env:IDNW_ACC_CLIENT_ID=[clientID]
-$env:IDNW_ACC_CLIENT_SECRET=[clientSecret]
-$env:IDNW_PRD_BASE_URL=https://[tenant].api.identitynow.com
-$env:IDNW_PRD_CLIENT_ID=[clientID]
-$env:IDNW_PRD_CLIENT_SECRET=[clientSecret]
-```
+#### Option 1: Use Environment Variables
+
+1. **Set Environment Variables**
+
+    Set the following environment variables to authenticate to your IdentityNow tenant:
+
+    ``` powershell
+    $env:IDNW_ACC_BASE_URL=https://[tenant]-sb.api.identitynow.com
+    $env:IDNW_ACC_CLIENT_ID=[clientID]
+    $env:IDNW_ACC_CLIENT_SECRET=[clientSecret]
+    $env:IDNW_PRD_BASE_URL=https://[tenant].api.identitynow.com
+    $env:IDNW_PRD_CLIENT_ID=[clientID]
+    $env:IDNW_PRD_CLIENT_SECRET=[clientSecret]
+    ```
+
+    Replace `[tenant]`, `[clientID]`, and `[clientSecret]` with your specific values.
+
+2. **Connect to IdentityNow using SecretManagement**
+
+   Use the `Connect-IDNW` command to authenticate using secrets from the registered Key Vault. Specify the `Instance` (e.g., `ACC` or `PRD`) as needed:
+
+   ```powershell
+   Connect-IDNW -Instance ACC
+   ```
+
+#### Option 2: Use Azure Key Vault with SecretManagement
+You can securely store and manage the required credentials in Azure Key Vault and use the `Microsoft.PowerShell.SecretManagement` module to access them.
+
+1. **Register your Key Vault**
+
+   Use the following command to register your Azure Key Vault:
+
+   ```powershell
+   $kvparams = @{
+       AZKVaultName = "KEYVAULT-NAME"
+       SubscriptionId = "subscription-id"
+   }
+   Register-SecretVault -Name 'KEYVAULT-NAME' -ModuleName Az.KeyVault -VaultParameters $kvparams
+   ```
+
+   Replace `KEYVAULT-NAME` with your Key Vault name and `subscription-id` with your Azure subscription ID.
+
+2. **Add Secrets to Key Vault**
+
+   Ensure the required secrets are stored in your Azure Key Vault. The secrets should correspond to the following environment variable names:
+
+   - `IDNW_ACC_BASE_URL`
+   - `IDNW_ACC_CLIENT_ID`
+   - `IDNW_ACC_CLIENT_SECRET`
+   - `IDNW_PRD_BASE_URL`
+   - `IDNW_PRD_CLIENT_ID`
+   - `IDNW_PRD_CLIENT_SECRET`
+
+3. **Connect to IdentityNow using SecretManagement**
+
+   Use the `Connect-IDNW` command with the `-UseSecretManagement` parameter to authenticate using secrets from the registered Key Vault. Specify the `Instance` (e.g., `ACC` or `PRD`) as needed:
+
+   ```powershell
+   Connect-IDNW -Instance ACC -UseSecretManagement
+   ```
+
+   This retrieves the required secrets from your registered Key Vault and authenticates the SDK.
+
+### Notes
+- Make sure the Azure Key Vault and the `Microsoft.PowerShell.SecretManagement` module are properly configured and accessible from your environment.
+- For more information, consult the the [SecretManagement module documentation](https://learn.microsoft.com/powershell/module/microsoft.powershell.secretmanagement/).
+
 
 ## Functions
 #### [Connect-IDNW](Documentation/Connect-IDNW.md)
