@@ -8,6 +8,9 @@
     .EXAMPLE
         Test-IDNWId
 
+    .PARAMETER Id
+        The Id to test.
+
     .INPUTS
         None
 
@@ -20,11 +23,15 @@ function Test-IDNWId {
         [string]$Id
     )
 
-    if (-not ($Id.Length -eq 32)) {
-        throw "$_ Is not a valid IdentityNow ID"
+    # Regular expressions for standard and compressed UUID formats
+    $standardUuidPattern = '^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$'
+    $compressedUuidPattern = '^[a-fA-F0-9]{32}$'
+
+    # Validate the ID against both patterns
+    if ($Id -match $standardUuidPattern -or $Id -match $compressedUuidPattern) {
+        return $true
     }
     else {
-        $true
+        return $false
     }
-
 }
