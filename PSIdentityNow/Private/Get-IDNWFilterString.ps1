@@ -1,15 +1,21 @@
 <#
     .SYNOPSIS
+        Helper function to generate filterstring.
 
     .DESCRIPTION
+        Converts a hashtable of filters to a string that can be used in IdentityNow API requests.
 
     .EXAMPLE
+        $filters = @()
+        $filters += @{
+            field    = "id"
+            operator = "in"
+            value    = "asdf"
+        }
+        Get-IDNWObject -ObjectType 'roles' -Filters $filters -Verbose
 
-    .PARAMETER Name
-
-    .PARAMETER AsPlainText
-
-    .PARAMETER UseSecretManagement
+    .PARAMETER Filters
+        An array of hashtables containing the filter details.
 
     .INPUTS
         None
