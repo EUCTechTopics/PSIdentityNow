@@ -1,0 +1,16 @@
+name: Pester
+
+on: [workflow_dispatch]
+
+jobs:
+  run-psscriptanalyzer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Pester Tests
+        shell: pwsh
+        run: |
+          Invoke-Pester -EnableExit
+        working-directory: ./Tests/
