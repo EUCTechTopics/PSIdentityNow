@@ -13,4 +13,8 @@ jobs:
         shell: pwsh
         run: |
           Invoke-Pester -EnableExit
+        env:
+          IDNW_BASE_URL: ${{ secrets.IDNW_BASE_URL }}
+          IDNW_CLIENT_ID: ${{ secrets.IDNW_CLIENT_ID }}
+          IDNW_CLIENT_SECRET: ${{ secrets.IDNW_CLIENT_SECRET }}
         working-directory: ./Tests/
