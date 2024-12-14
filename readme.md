@@ -68,13 +68,13 @@ To use the SDK with your IdentityNow tenant, you must configure authentication b
 
 
    ```powershell
-   # Using generic variables
+   # Using generic secrets
    Connect-IDNW
 
-   # Using specific instance variables (ACC)
+   # Using instance specific secrets (ACC)
    Connect-IDNW -Instance ACC
 
-   # Using specific instance variables (PRD)
+   # Using instance specific secrets (PRD)
    Connect-IDNW -Instance PRD
    ```
 
