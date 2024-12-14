@@ -1,9 +1,10 @@
 name: Run Pester Tests
 
-on: [workflow_dispatch]
+on:
+  pull_request:
 
 jobs:
-  tests:
+  pester:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
