@@ -68,13 +68,13 @@ To use the SDK with your IdentityNow tenant, you must configure authentication b
 
 
    ```powershell
-   # Using generic secrets
+   # Using generic environment variables
    Connect-IDNW
 
-   # Using instance specific secrets (ACC)
+   # Using instance specific environment variables (ACC)
    Connect-IDNW -Instance ACC
 
-   # Using instance specific secrets (PRD)
+   # Using instance specific environment variables (PRD)
    Connect-IDNW -Instance PRD
    ```
 
@@ -123,13 +123,13 @@ You can securely store and manage the required credentials in Azure Key Vault an
 
 
    ```powershell
-   # Using generic environment variables
+   # Using generic secrets
    Connect-IDNW -UseSecretManagement
 
-   # Using instance specific variables (ACC)
+   # Using instance specific secrets (ACC)
    Connect-IDNW -Instance ACC -UseSecretManagement
 
-   # Using instance specific variables (PRD)
+   # Using instance specific secrets (PRD)
    Connect-IDNW -Instance PRD -UseSecretManagement
    ```
 
