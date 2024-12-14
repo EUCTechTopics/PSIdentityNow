@@ -41,31 +41,68 @@ To use the SDK with your IdentityNow tenant, you must configure authentication b
 
 1. **Set Environment Variables**
 
-    Set the following environment variables to authenticate to your IdentityNow tenant:
+   Set the following environment variables to authenticate to your IdentityNow tenant:
 
-    ``` powershell
-    $env:IDNW_ACC_BASE_URL=https://[tenant]-sb.api.identitynow.com
-    $env:IDNW_ACC_CLIENT_ID=[clientID]
-    $env:IDNW_ACC_CLIENT_SECRET=[clientSecret]
-    $env:IDNW_PRD_BASE_URL=https://[tenant].api.identitynow.com
-    $env:IDNW_PRD_CLIENT_ID=[clientID]
-    $env:IDNW_PRD_CLIENT_SECRET=[clientSecret]
-    ```
+   ``` powershell
+   $env:IDNW_BASE_URL=https://[tenant].api.identitynow.com
+   $env:IDNW_CLIENT_ID=[clientID]
+   $env:IDNW_CLIENT_SECRET=[clientSecret]
+   ```
 
-    Replace `[tenant]`, `[clientID]`, and `[clientSecret]` with your specific values.
+   Replace `[tenant]`, `[clientID]`, and `[clientSecret]` with your specific values.
 
-2. **Connect to IdentityNow using SecretManagement**
-
-   Use the `Connect-IDNW` command to authenticate using secrets from the registered Key Vault. Specify the `Instance` (e.g., `ACC` or `PRD`) as needed:
+   Alternatively, you can use instance specific environment variables. If these variables are set, you have to specify the `-Instance` parameter when running `Connect-IDNW`:
 
    ```powershell
+   $env:IDNW_ACC_BASE_URL=https://[tenant]-sb.api.identitynow.com
+   $env:IDNW_ACC_CLIENT_ID=[clientID]
+   $env:IDNW_ACC_CLIENT_SECRET=[clientSecret]
+   $env:IDNW_PRD_BASE_URL=https://[tenant].api.identitynow.com
+   $env:IDNW_PRD_CLIENT_ID=[clientID]
+   $env:IDNW_PRD_CLIENT_SECRET=[clientSecret]
+   ```
+
+2. **Connect to IdentityNow**
+
+   Use the `Connect-IDNW` command to authenticate using secrets from the registered Key Vault. Specify the `-Instance` parameter (e.g., `ACC` or `PRD`) as needed:
+
+
+   ```powershell
+   # Using generic environment variables
+   Connect-IDNW
+
+   # Using specific instance variables (ACC)
    Connect-IDNW -Instance ACC
+
+   # Using specific instance variables (PRD)
+   Connect-IDNW -Instance PRD
    ```
 
 #### Option 2: Use Azure Key Vault with SecretManagement
 You can securely store and manage the required credentials in Azure Key Vault and use the `Microsoft.PowerShell.SecretManagement` module to access them.
 
-1. **Register your Key Vault**
+1. **Add Secrets to Key Vault**
+
+   Ensure the required secrets are stored in your Azure Key Vault. The secrets should correspond to the following environment variable names:
+
+   ``` yaml
+   IDNW-BASE-URL
+   IDNW-CLIENT-ID
+   IDNW-CLIENT-SECRET
+   ```
+
+   Alternatively, you can use instance specific environment variables. If these variables are set, you have to specify the `-Instance` parameter when running `Connect-IDNW`:
+
+   ``` yaml
+   IDNW-ACC-BASE-URL
+   IDNW-ACC-CLIENT-ID
+   IDNW-ACC-CLIENT-SECRET
+   IDNW-PRD-BASE-URL
+   IDNW-PRD-CLIENT-ID
+   IDNW-PRD-CLIENT-SECRET
+   ```
+
+2. **Register your Key Vault**
 
    Use the following command to register your Azure Key Vault:
 
@@ -79,23 +116,21 @@ You can securely store and manage the required credentials in Azure Key Vault an
 
    Replace `KEYVAULT-NAME` with your Key Vault name and `subscription-id` with your Azure subscription ID.
 
-2. **Add Secrets to Key Vault**
-
-   Ensure the required secrets are stored in your Azure Key Vault. The secrets should correspond to the following environment variable names:
-
-   - `IDNW_ACC_BASE_URL`
-   - `IDNW_ACC_CLIENT_ID`
-   - `IDNW_ACC_CLIENT_SECRET`
-   - `IDNW_PRD_BASE_URL`
-   - `IDNW_PRD_CLIENT_ID`
-   - `IDNW_PRD_CLIENT_SECRET`
 
 3. **Connect to IdentityNow using SecretManagement**
 
-   Use the `Connect-IDNW` command with the `-UseSecretManagement` parameter to authenticate using secrets from the registered Key Vault. Specify the `Instance` (e.g., `ACC` or `PRD`) as needed:
+   Use the `Connect-IDNW` command with the `-UseSecretManagement` parameter to authenticate using secrets from the registered Key Vault. Specify the `-Instance` parameter (e.g., `ACC` or `PRD`) as needed:
+
 
    ```powershell
+   # Using generic environment variables
+   Connect-IDNW -UseSecretManagement
+
+   # Using instance specific variables (ACC)
    Connect-IDNW -Instance ACC -UseSecretManagement
+
+   # Using instance specific variables (PRD)
+   Connect-IDNW -Instance PRD -UseSecretManagement
    ```
 
    This retrieves the required secrets from your registered Key Vault and authenticates the SDK.
