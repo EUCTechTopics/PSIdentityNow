@@ -1,9 +1,9 @@
-name: Pester
+name: Run Pester Tests
 
 on: [workflow_dispatch]
 
 jobs:
-  run-psscriptanalyzer:
+  tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

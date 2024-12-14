@@ -1,10 +1,10 @@
-name: PSScriptAnalyzer
+name: Run PSScriptAnalyzer
 
 on:
   pull_request:
 
 jobs:
-  run-psscriptanalyzer:
+  psscriptanalyzer:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
