@@ -68,7 +68,7 @@ To use the SDK with your IdentityNow tenant, you must configure authentication b
 
 
    ```powershell
-   # Using generic environment variables
+   # Using generic variables
    Connect-IDNW
 
    # Using specific instance variables (ACC)
