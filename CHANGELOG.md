@@ -15,9 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Fixed Test-IDNWId function to pass both UUID and compressed UUID formats
 
-[0.1.0]: https://github.com/EUCTechTopics/PSIdentityNow/releases/tag/v0.1.1
+[0.1.1]: https://github.com/EUCTechTopics/PSIdentityNow/releases/tag/v0.1.1
 
-## [0.1.0] - 2024-12-12
+## 0.1.0 - 2024-12-12
 
 ### Added
 
@@ -28,12 +28,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated string variables that contain secrets to be SecureStrings.
 - Better error message handling.
 
-[0.1.0]: https://github.com/EUCTechTopics/PSIdentityNow/releases/tag/v0.1.0
-
-## [0.0.1] - 2024-04-12
+## 0.0.1 - 2024-04-12
 
 ### Added
 
 - Initial Version
-
-[0.0.1]: https://github.com/EUCTechTopics/PSIdentityNow/releases/tag/v0.0.1
