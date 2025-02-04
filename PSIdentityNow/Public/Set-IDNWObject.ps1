@@ -55,7 +55,7 @@ function Set-IDNWObject {
     $Method = 'PATCH'
 
     # Convert hashtable to JSON
-    $Body = ConvertTo-Json @($Data)
+    $Body = ConvertTo-Json @($Data) -Depth 99
 
     # Configure the Url
     $url = "$($script:IDNWEnv.BaseAPIUrl)/$ObjectType/$Id"
