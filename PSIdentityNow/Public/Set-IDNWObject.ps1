@@ -36,7 +36,7 @@ function Set-IDNWObject {
     ]
     param (
         [Parameter(Mandatory = $True)]
-        [ValidateSet("access-profiles", "roles", "public-identities", "requestable-objects", "segments")]
+        [ValidateSet("access-profiles", "entitlements", "roles", "public-identities", "requestable-objects", "segments")]
         [String]
         $ObjectType,
 
