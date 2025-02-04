@@ -52,7 +52,7 @@ function Get-IDNWObject {
         [Parameter(Mandatory = $true, ParameterSetName = 'byId')]
         [Parameter(Mandatory = $true, ParameterSetName = 'byFilter')]
         [Parameter(Mandatory = $true, ParameterSetName = 'all')]
-        [ValidateSet("access-profiles", "roles", "public-identities", "requestable-objects", "segments")]
+        [ValidateSet("access-profiles", "entitlements", "roles", "public-identities", "requestable-objects", "segments")]
         [String]
         $ObjectType,
 
