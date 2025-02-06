@@ -23,6 +23,7 @@ If you run into any bugs or have feedback, please let me know by raising an issu
 
 Currently supports the following Objects:
  - access-profiles
+ - entitlements
  - public-identities
  - roles
  - requestable-objects
