@@ -50,7 +50,7 @@ function New-IDNWObject {
     $Method = 'POST'
 
     # Convert hashtable to JSON
-    $Body = $Data | ConvertTo-Json
+    $Body = $Data | ConvertTo-Json -Depth 100
 
     # Configure the Url
     $url = "$($script:IDNWEnv.BaseAPIUrl)/$ObjectType"
