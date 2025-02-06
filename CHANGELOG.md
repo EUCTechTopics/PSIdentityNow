@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.2.0] - 2025-02-06
+
+### Changes
+
+- Added support for "entitlements" object type ([#21](https://github.com/EUCTechTopics/PSIdentityNow/pull/21))
+
+### Fixed
+
+- Added 'Depth' parameter to ConvertTo-JSON to support JSON data exceeding a depth of 2 ([#22](https://github.com/EUCTechTopics/PSIdentityNow/pull/22))
+
+[0.2.0]: https://github.com/EUCTechTopics/PSIdentityNow/releases/tag/v0.2.0
+
 ## [0.1.1] - 2024-12-14
 
 ### Changes
