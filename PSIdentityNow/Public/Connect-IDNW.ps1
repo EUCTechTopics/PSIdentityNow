@@ -85,6 +85,7 @@ Org:                  $($script:IDNWEnv.SessionTokenDetails.org)
 Authorities:          $($script:IDNWEnv.SessionTokenDetails.Authorities -join ', ')
 Base URL:             $($script:IDNWEnv.BaseAPIURL)
 API Version:          $($script:IDNWEnv.APIVersion)
+Module Version:       $($MyInvocation.MyCommand.Module.Version)
 Token Expires:        $($script:IDNWEnv.SessionTokenDetails.expiryDateTime)
 
 "@
