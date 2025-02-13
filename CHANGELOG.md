@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.2.0] - 2025-02-06
 
-### Added
+### Changed
 
 - Added support for "entitlements" object type ([#21](https://github.com/EUCTechTopics/PSIdentityNow/pull/21))
 
