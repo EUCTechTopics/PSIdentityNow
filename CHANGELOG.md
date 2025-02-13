@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added new Get-IDNWOrg function ([#23](https://github.com/EUCTechTopics/PSIdentityNow/pull/23))
+- Added new Get-IDNWOrg function ([#25](https://github.com/EUCTechTopics/PSIdentityNow/pull/25))
 
 [0.3.0]: https://github.com/EUCTechTopics/PSIdentityNow/releases/tag/v0.3.0
 
