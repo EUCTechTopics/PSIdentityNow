@@ -148,6 +148,8 @@ Connects to IdentityNow.
 Disconnects from IdentityNow.
 #### [Get-IDNWObject](Documentation/Get-IDNWObject.md)
 Get the specified objects from IdentityNow.
+#### [Get-IDNWOrg](Documentation/Get-IDNWOrg.md)
+Get the IdentityNow Organisation.
 #### [New-IDNWObject](Documentation/New-IDNWObject.md)
 Create a new object in IdentityNow.
 #### [Remove-IDNWObject](Documentation/Remove-IDNWObject.md)
