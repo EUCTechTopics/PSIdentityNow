@@ -28,5 +28,5 @@ function Get-IDNWOrg {
     catch {
         throw "Failed to get IdentityNow Org"
     }
-    
+
 }
