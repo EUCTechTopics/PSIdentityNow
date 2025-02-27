@@ -25,7 +25,7 @@
 #>
 
 function Connect-IDNW {
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments","")]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute("PSUseDeclaredVarsMoreThanAssignments", "")]
     [CmdletBinding(
         SupportsShouldProcess = $False,
         ConfirmImpact = "None",
@@ -35,7 +35,7 @@ function Connect-IDNW {
     param (
         [Parameter(Mandatory = $false)]
         [Alias("Environment")]
-        [ValidateSet("Sandbox","ACC", "PRD")]
+        [ValidateSet("Sandbox", "ACC", "PRD")]
         [String]
         $Instance,
 
@@ -59,7 +59,7 @@ function Connect-IDNW {
     }
 
     $Parameters = @{
-        APIVersion = $APIVersion
+        APIVersion          = $APIVersion
         UseSecretManagement = $UseSecretManagement
     }
     if ($PSBoundParameters.ContainsKey('Instance')) {
@@ -71,6 +71,16 @@ function Connect-IDNW {
     }
 
     $script:IDNWEnv = Get-IDNWEnvironment @Parameters
+
+    # Concatenate full version string with prerelease label if present
+    $PrereleaseLabel = $MyInvocation.MyCommand.Module.PrivateData.PSData['Prerelease']
+    $ModuleVersion = $MyInvocation.MyCommand.Module.Version
+    if (-not [string]::isNullOrEmpty($PrereleaseLabel)) {
+        $VersionString = ("{0}-{1}" -f $ModuleVersion, $PrereleaseLabel)
+    }
+    else {
+        $VersionString = $ModuleVersion
+    }
     # Build formatted output using a here-string for alignment
     $identityNowInfo = @"
 
@@ -85,7 +95,7 @@ Org:                  $($script:IDNWEnv.SessionTokenDetails.org)
 Authorities:          $($script:IDNWEnv.SessionTokenDetails.Authorities -join ', ')
 Base URL:             $($script:IDNWEnv.BaseAPIURL)
 API Version:          $($script:IDNWEnv.APIVersion)
-Module Version:       $($MyInvocation.MyCommand.Module.Version)
+Module Version:       $($VersionString)
 Token Expires:        $($script:IDNWEnv.SessionTokenDetails.expiryDateTime)
 
 "@
