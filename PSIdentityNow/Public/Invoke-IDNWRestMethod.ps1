@@ -77,6 +77,9 @@ function Invoke-IDNWRestMethod {
     # Check if connected to IdentityNow
     Test-IDNWConnection
 
+    # Form complete URL
+    $Url = ("{0}{1}" -f $($script:IDNWEnv.BaseAPIUrl), $Url)
+
     # Create authorization header
     $Token = ConvertFrom-SecureString $script:IDNWEnv.SessionToken -AsPlainText
     $Headers = @{
