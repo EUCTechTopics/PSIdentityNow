@@ -1,12 +1,12 @@
 <#
     .SYNOPSIS
-        Invoke a REST method to the IdentityNow API.
+        Invoke the IdentityNow REST API.
 
     .DESCRIPTION
         This function is used to invoke a REST method to the IdentityNow API. It will handle pagination and retries.
 
     .PARAMETER Url
-        The URL to call.
+        The relative URL to call.
 
     .PARAMETER UrlParams
         The parameters to add to the URL.
@@ -27,7 +27,7 @@
         The duration to pause between retries.
 
     .EXAMPLE
-        Invoke-IDNWRestMethod -Url 'https://$($script:IDNWEnv.BaseAPIUrl)/roles' -Method 'GET'
+        Invoke-IDNWRestMethod -Url '/roles' -Method 'GET'
 
     .INPUTS
         None
@@ -44,24 +44,24 @@ function Invoke-IDNWRestMethod {
         PositionalBinding = $True)
     ]
     param (
-        [Parameter()]
+        [Parameter(Mandatory = $true)]
         [String]
         $Url,
 
-        [Parameter()]
+        [Parameter(Mandatory = $false)]
         [Hashtable]
         $UrlParams,
 
-        [Parameter()]
+        [Parameter(Mandatory = $false)]
         [ValidateSet("GET", "PATCH", "POST", "PUT", "DELETE")]
         [String]
         $Method = "GET",
 
-        [Parameter()]
+        [Parameter(Mandatory = $false)]
         [String]
         $Body,
 
-        [Parameter()]
+        [Parameter(Mandatory = $false)]
         [String]
         $ContentType = "application/json",
 
@@ -76,6 +76,9 @@ function Invoke-IDNWRestMethod {
 
     # Check if connected to IdentityNow
     Test-IDNWConnection
+
+    # Form complete URL
+    $Url = ("{0}{1}" -f $($script:IDNWEnv.BaseAPIUrl), $Url)
 
     # Create authorization header
     $Token = ConvertFrom-SecureString $script:IDNWEnv.SessionToken -AsPlainText

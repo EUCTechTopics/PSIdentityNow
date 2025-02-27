@@ -71,7 +71,7 @@ function Get-IDNWObject {
     $Splat = @{}
 
     # Configure the Url
-    $url = "$($script:IDNWEnv.BaseAPIUrl)/$ObjectType"
+    $url = "/$ObjectType"
 
     switch ($PSCmdlet.ParameterSetName) {
         'byId' {
