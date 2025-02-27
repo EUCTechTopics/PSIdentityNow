@@ -44,7 +44,7 @@ function Remove-IDNWObject {
     $Method = 'DELETE'
 
     # Configure the Url
-    $url = "$($script:IDNWEnv.BaseAPIUrl)/$ObjectType/$Id"
+    $url = "/$ObjectType/$Id"
 
     # ShouldProcess to support -WhatIf
     if ($PSCmdlet.ShouldProcess($Id, "Delete $ObjectType")) {

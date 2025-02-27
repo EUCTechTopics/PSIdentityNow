@@ -53,7 +53,7 @@ function New-IDNWObject {
     $Body = $Data | ConvertTo-Json -Depth 100
 
     # Configure the Url
-    $url = "$($script:IDNWEnv.BaseAPIUrl)/$ObjectType"
+    $url = "/$ObjectType"
 
     # ShouldProcess to support -WhatIf
     if ($PSCmdlet.ShouldProcess($ObjectType, "Create object")){

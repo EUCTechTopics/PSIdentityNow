@@ -58,7 +58,7 @@ function Set-IDNWObject {
     $Body = ConvertTo-Json @($Data) -Depth 100
 
     # Configure the Url
-    $url = "$($script:IDNWEnv.BaseAPIUrl)/$ObjectType/$Id"
+    $url = "/$ObjectType/$Id"
 
     # ShouldProcess to support -WhatIf
     if ($PSCmdlet.ShouldProcess($ObjectType, "Update object")){
