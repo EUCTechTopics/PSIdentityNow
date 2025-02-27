@@ -73,7 +73,7 @@ function Connect-IDNW {
     $script:IDNWEnv = Get-IDNWEnvironment @Parameters
 
     # Concatenate full version string with prerelease label if present
-    $PrereleaseLabel = $MyInvocation.MyCommand.Module.PrivateData.PSData['Prerelease']
+    # $PrereleaseLabel = $MyInvocation.MyCommand.Module.PrivateData.PSData['Prerelease']
     $ModuleVersion = $MyInvocation.MyCommand.Module.Version
     if (-not [string]::isNullOrEmpty($PrereleaseLabel)) {
         $VersionString = ("{0}-{1}" -f $ModuleVersion, $PrereleaseLabel)
