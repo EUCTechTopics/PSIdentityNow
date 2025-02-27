@@ -150,6 +150,8 @@ Disconnects from IdentityNow.
 Get the specified objects from IdentityNow.
 #### [Get-IDNWOrg](Documentation/Get-IDNWOrg.md)
 Get the IdentityNow Organisation.
+#### [Invoke-IDNWRestMethod](Documentation/Invoke-IDNWRestMethod.md)
+Invoke the IdentityNow REST API.
 #### [New-IDNWObject](Documentation/New-IDNWObject.md)
 Create a new object in IdentityNow.
 #### [Remove-IDNWObject](Documentation/Remove-IDNWObject.md)
