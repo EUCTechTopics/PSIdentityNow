@@ -27,7 +27,7 @@
         The duration to pause between retries.
 
     .EXAMPLE
-        Invoke-IDNWRestMethod -Url 'https://$($script:IDNWEnv.BaseAPIUrl)/roles' -Method 'GET'
+        Invoke-IDNWRestMethod -Url '/roles' -Method 'GET'
 
     .INPUTS
         None
