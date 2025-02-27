@@ -71,15 +71,6 @@ function Connect-IDNW {
     }
 
     $script:IDNWEnv = Get-IDNWEnvironment @Parameters
-
-    # Concatenate full version string with prerelease label if present
-    $PrereleaseLabel = $MyInvocation.MyCommand.Module.PrivateData.PSData['Prerelease']
-    $ModuleVersion = $MyInvocation.MyCommand.Module.Version
-    if (-not [string]::isNullOrEmpty($PrereleaseLabel)) {
-        $VersionString = ("{0}-{1}" -f $ModuleVersion, $PrereleaseLabel)
-    } else {
-        $VersionString = $ModuleVersion
-    }
     # Build formatted output using a here-string for alignment
     $identityNowInfo = @"
 
@@ -94,7 +85,7 @@ Org:                  $($script:IDNWEnv.SessionTokenDetails.org)
 Authorities:          $($script:IDNWEnv.SessionTokenDetails.Authorities -join ', ')
 Base URL:             $($script:IDNWEnv.BaseAPIURL)
 API Version:          $($script:IDNWEnv.APIVersion)
-Module Version:       $($VersionString)
+Module Version:       $($MyInvocation.MyCommand.Module.Version)
 Token Expires:        $($script:IDNWEnv.SessionTokenDetails.expiryDateTime)
 
 "@
