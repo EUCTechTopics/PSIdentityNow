@@ -66,6 +66,10 @@ function Invoke-IDNWRestMethod {
         $ContentType = "application/json",
 
         [Parameter(Mandatory = $false)]
+        [Switch]
+        $IncludeHTTPResponse = $false,
+
+        [Parameter(Mandatory = $false)]
         [Int]
         $MaxRetries = 3,
 
