@@ -97,6 +97,7 @@ function Connect-IDNW {
 
 Instance:             $Instance
 Tenant ID:            $($script:IDNWEnv.SessionTokenDetails.tenant_id)
+User:                 $($script:IDNWEnv.SessionTokenDetails.user_name)
 Pod:                  $($script:IDNWEnv.SessionTokenDetails.pod)
 Org:                  $($script:IDNWEnv.SessionTokenDetails.org)
 Authorities:          $($script:IDNWEnv.SessionTokenDetails.Authorities -join ', ')
