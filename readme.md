@@ -55,6 +55,12 @@ To use the SDK with your IdentityNow tenant, you must configure authentication b
    Alternatively, you can use instance specific environment variables. If these variables are set, you have to specify the `-Instance` parameter when running `Connect-IDNW`:
 
    ```powershell
+   $env:IDNW_DEV_BASE_URL=https://[tenant]-dev.api.identitynow.com
+   $env:IDNW_DEV_CLIENT_ID=[clientID]
+   $env:IDNW_DEV_CLIENT_SECRET=[clientSecret]
+   $env:IDNW_TST_BASE_URL=https://[tenant]-tst.api.identitynow.com
+   $env:IDNW_TST_CLIENT_ID=[clientID]
+   $env:IDNW_TST_CLIENT_SECRET=[clientSecret]
    $env:IDNW_ACC_BASE_URL=https://[tenant]-sb.api.identitynow.com
    $env:IDNW_ACC_CLIENT_ID=[clientID]
    $env:IDNW_ACC_CLIENT_SECRET=[clientSecret]
