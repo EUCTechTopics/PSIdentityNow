@@ -14,7 +14,23 @@ This function connects to IdentityNow and sets the environment variables for the
 ## EXAMPLES
 ```powershell
 -------------------------- EXAMPLE 1 --------------------------
-Connect-IDNW -Instance "Sandbox"
+Connect-IDNW -Instance "DEV" -APIVersion "beta"
+Connects to the DEV instance using the beta API version.
+
+
+-------------------------- EXAMPLE 2 --------------------------
+Connect-IDNW -Instance "TST" -APIVersion "v3"
+Connects to the TST instance using the v3 API version.
+
+
+-------------------------- EXAMPLE 3 --------------------------
+Connect-IDNW -Instance "ACC" -APIVersion "v3"
+Connects to the ACC instance using the v3 API version.
+
+
+-------------------------- EXAMPLE 4 --------------------------
+Connect-IDNW -Instance "PRD" -APIVersion "v3" -UseSecretManagement
+Connects to the PRD instance using the v3 API version and retrieves secrets using Microsoft.PowerShell.SecretManagement.
 
 ```
 

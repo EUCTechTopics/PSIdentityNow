@@ -6,7 +6,20 @@
         This function connects to IdentityNow and sets the environment variables for the specified instance.
 
     .EXAMPLE
-        Connect-IDNW -Instance "Sandbox"
+        Connect-IDNW -Instance "DEV" -APIVersion "beta"
+        Connects to the DEV instance using the beta API version.
+
+    .EXAMPLE
+        Connect-IDNW -Instance "TST" -APIVersion "v3"
+        Connects to the TST instance using the v3 API version.
+
+    .EXAMPLE
+        Connect-IDNW -Instance "ACC" -APIVersion "v3"
+        Connects to the ACC instance using the v3 API version.
+
+    .EXAMPLE
+        Connect-IDNW -Instance "PRD" -APIVersion "v3" -UseSecretManagement
+        Connects to the PRD instance using the v3 API version and retrieves secrets using Microsoft.PowerShell.SecretManagement.
 
     .PARAMETER Instance
         The IdentityNow instance to connect to.
@@ -35,7 +48,7 @@ function Connect-IDNW {
     param (
         [Parameter(Mandatory = $false)]
         [Alias("Environment")]
-        [ValidateSet("Sandbox", "ACC", "PRD")]
+        [ValidateSet("DEV", "TST", "ACC", "PRD")]
         [String]
         $Instance,
 
@@ -48,15 +61,6 @@ function Connect-IDNW {
         [Switch]
         $UseSecretManagement = $false
     )
-
-    switch ($Instance.ToLower()) {
-        { "sandbox" } {
-            $Instance = "Sandbox"
-        }
-        { "prd", "acc" -contains $_ } {
-            $Instance = $_.ToUpper()
-        }
-    }
 
     $Parameters = @{
         APIVersion          = $APIVersion

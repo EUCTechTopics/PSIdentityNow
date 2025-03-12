@@ -6,7 +6,7 @@
         This function gets the environment details for the specified IdentityNow instance. The function will return the base URL, the base API URL, the session token data, the session token, and the API version.
 
     .EXAMPLE
-        Get-IDNWEnvironment -Instance "Sandbox"
+        Get-IDNWEnvironment
 
     .PARAMETER Instance
         The IdentityNow instance to get the environment details for.
@@ -28,7 +28,7 @@ function Get-IDNWEnvironment {
     param (
         [Parameter(Mandatory = $false)]
         [Alias("Environment")]
-        [ValidateSet("Sandbox", "ACC", "PRD")]
+        [ValidateSet("DEV", "TST", "ACC", "PRD")]
         [String]
         $Instance,
 
@@ -55,22 +55,14 @@ function Get-IDNWEnvironment {
     }
 
     # Determine correct set of secrets for session
-    switch ($Instance.ToLower()) {
-        { "sandbox", "acc" -contains $_ } {
-            $sail_base_url = Get-IDNWSecret -Name 'IDNW-ACC-BASE-URL' -AsPlainText -UseSecretManagement:$UseSecretManagement
-            $sail_client_id = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-ID' -AsPlainText -UseSecretManagement:$UseSecretManagement
-            $sail_client_secret = Get-IDNWSecret -Name 'IDNW-ACC-CLIENT-SECRET'-UseSecretManagement:$UseSecretManagement
-        }
-        "prd" {
-            $sail_base_url = Get-IDNWSecret -Name 'IDNW-PRD-BASE-URL' -AsPlainText -UseSecretManagement:$UseSecretManagement
-            $sail_client_id = Get-IDNWSecret -Name 'IDNW-PRD-CLIENT-ID' -AsPlainText -UseSecretManagement:$UseSecretManagement
-            $sail_client_secret = Get-IDNWSecret -Name 'IDNW-PRD-CLIENT-SECRET'-UseSecretManagement:$UseSecretManagement
-        }
-        default {
-            $sail_base_url = Get-IDNWSecret -Name 'IDNW-BASE-URL' -AsPlainText -UseSecretManagement:$UseSecretManagement
-            $sail_client_id = Get-IDNWSecret -Name 'IDNW-CLIENT-ID' -AsPlainText -UseSecretManagement:$UseSecretManagement
-            $sail_client_secret = Get-IDNWSecret -Name 'IDNW-CLIENT-SECRET'-UseSecretManagement:$UseSecretManagement
-        }
+    if($Instance) {
+        $sail_base_url = Get-IDNWSecret -Name "IDNW-$($Instance.ToUpper())-BASE-URL" -AsPlainText -UseSecretManagement:$UseSecretManagement
+        $sail_client_id = Get-IDNWSecret -Name "IDNW-$($Instance.ToUpper())-CLIENT-ID" -AsPlainText -UseSecretManagement:$UseSecretManagement
+        $sail_client_secret = Get-IDNWSecret -Name "IDNW-$($Instance.ToUpper())-CLIENT-SECRET" -UseSecretManagement:$UseSecretManagement
+    } else {
+        $sail_base_url = Get-IDNWSecret -Name 'IDNW-BASE-URL' -AsPlainText -UseSecretManagement:$UseSecretManagement
+        $sail_client_id = Get-IDNWSecret -Name 'IDNW-CLIENT-ID' -AsPlainText -UseSecretManagement:$UseSecretManagement
+        $sail_client_secret = Get-IDNWSecret -Name 'IDNW-CLIENT-SECRET' -UseSecretManagement:$UseSecretManagement
     }
 
     $sessiontokendata = @{
