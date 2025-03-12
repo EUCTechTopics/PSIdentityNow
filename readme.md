@@ -65,12 +65,18 @@ To use the SDK with your IdentityNow tenant, you must configure authentication b
 
 2. **Connect to IdentityNow**
 
-   Use the `Connect-IDNW` command to authenticate using secrets from the registered Key Vault. Specify the `-Instance` parameter (e.g., `ACC` or `PRD`) as needed:
+   Use the `Connect-IDNW` command to authenticate using secrets from the registered Key Vault. Specify the `-Instance` parameter (e.g., `DEV`, `TST`, `ACC` or `PRD`) as needed:
 
 
    ```powershell
    # Using generic environment variables
    Connect-IDNW
+
+   # Using instance specific environment variables (DEV)
+   Connect-IDNW -Instance DEV
+
+   # Using instance specific environment variables (TST)
+   Connect-IDNW -Instance TST
 
    # Using instance specific environment variables (ACC)
    Connect-IDNW -Instance ACC
@@ -95,6 +101,12 @@ You can securely store and manage the required credentials in Azure Key Vault an
    Alternatively, you can use instance specific environment variables. If these variables are set, you have to specify the `-Instance` parameter when running `Connect-IDNW`:
 
    ``` yaml
+   IDNW-DEV-BASE-URL
+   IDNW-DEV-CLIENT-ID
+   IDNW-DEV-CLIENT-SECRET
+   IDNW-TST-BASE-URL
+   IDNW-TST-CLIENT-ID
+   IDNW-TST-CLIENT-SECRET
    IDNW-ACC-BASE-URL
    IDNW-ACC-CLIENT-ID
    IDNW-ACC-CLIENT-SECRET
@@ -120,12 +132,18 @@ You can securely store and manage the required credentials in Azure Key Vault an
 
 3. **Connect to IdentityNow using SecretManagement**
 
-   Use the `Connect-IDNW` command with the `-UseSecretManagement` parameter to authenticate using secrets from the registered Key Vault. Specify the `-Instance` parameter (e.g., `ACC` or `PRD`) as needed:
+   Use the `Connect-IDNW` command with the `-UseSecretManagement` parameter to authenticate using secrets from the registered Key Vault. Specify the `-Instance` parameter (e.g., `DEV`, `TST`, `ACC` or `PRD`) as needed:
 
 
    ```powershell
    # Using generic secrets
    Connect-IDNW -UseSecretManagement
+
+   # Using instance specific secrets (DEV)
+   Connect-IDNW -Instance DEV -UseSecretManagement
+
+   # Using instance specific secrets (TST)
+   Connect-IDNW -Instance TST -UseSecretManagement
 
    # Using instance specific secrets (ACC)
    Connect-IDNW -Instance ACC -UseSecretManagement
