@@ -169,7 +169,7 @@ You can securely store and manage the required credentials in Azure Key Vault an
 
 
 ## Functions
-#### [Connect-IDNW](Documentation/Connect-IDNW.md)
+#### [Connect-IDNW](/Documentation/Connect-IDNW.md)
 Connects to IdentityNow.
 #### [Disconnect-IDNW](Documentation/Disconnect-IDNW.md)
 Disconnects from IdentityNow.
