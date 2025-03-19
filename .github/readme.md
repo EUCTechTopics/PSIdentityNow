@@ -1,8 +1,11 @@
 # PSIdentityNow
 [![PSIdentityNow](https://img.shields.io/powershellgallery/v/PSIdentityNow.svg?style=flat-square&label=Powershell%20Gallery)](https://www.powershellgallery.com/packages/PSIdentityNow/)
 ![powershell gallery](https://img.shields.io/powershellgallery/dt/PSIdentityNow)
-[![License](https://img.shields.io/badge/license-GPL&ndash;3.0-blue.svg)](https://github.com/EUCTechTopics/PSIdentityNow/blob/main/LICENSE) 
+[![License](https://img.shields.io/badge/license-GPL&ndash;3.0-blue.svg)](/LICENSE) 
 <img src="https://img.shields.io/badge/supports ps-core-blue.svg"></img>
+
+[![Pester Tests](https://github.com/EUCTechTopics/PSIdentityNow/actions/workflows/run-pester.yml/badge.svg?branch=next)](https://github.com/EUCTechTopics/PSIdentityNow/actions/workflows/run-pester.yml)
+[![PSScriptAnalyzer](https://github.com/EUCTechTopics/PSIdentityNow/actions/workflows/run-psscriptanalyzer.yml/badge.svg)](https://github.com/EUCTechTopics/PSIdentityNow/actions/workflows/run-psscriptanalyzer.yml)
 
 ## Summary
 A PowerShell module to interact with the IdentityNow REST API.
@@ -166,21 +169,21 @@ You can securely store and manage the required credentials in Azure Key Vault an
 
 
 ## Functions
-#### [Connect-IDNW](Documentation/Connect-IDNW.md)
+#### [Connect-IDNW](/Documentation/Connect-IDNW.md)
 Connects to IdentityNow.
-#### [Disconnect-IDNW](Documentation/Disconnect-IDNW.md)
+#### [Disconnect-IDNW](/Documentation/Disconnect-IDNW.md)
 Disconnects from IdentityNow.
-#### [Get-IDNWObject](Documentation/Get-IDNWObject.md)
+#### [Get-IDNWObject](/Documentation/Get-IDNWObject.md)
 Get the specified objects from IdentityNow.
-#### [Get-IDNWOrg](Documentation/Get-IDNWOrg.md)
+#### [Get-IDNWOrg](/Documentation/Get-IDNWOrg.md)
 Get the IdentityNow Organisation.
-#### [Invoke-IDNWRestMethod](Documentation/Invoke-IDNWRestMethod.md)
+#### [Invoke-IDNWRestMethod](/Documentation/Invoke-IDNWRestMethod.md)
 Invoke the IdentityNow REST API.
-#### [New-IDNWObject](Documentation/New-IDNWObject.md)
+#### [New-IDNWObject](/Documentation/New-IDNWObject.md)
 Create a new object in IdentityNow.
-#### [Remove-IDNWObject](Documentation/Remove-IDNWObject.md)
+#### [Remove-IDNWObject](/Documentation/Remove-IDNWObject.md)
 Delete an object in IdentityNow.
-#### [Set-IDNWObject](Documentation/Set-IDNWObject.md)
+#### [Set-IDNWObject](/Documentation/Set-IDNWObject.md)
 Update an object in IdentityNow.
 
 ## Reporting Issues and Feedback
