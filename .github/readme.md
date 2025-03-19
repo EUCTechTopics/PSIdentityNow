@@ -171,19 +171,19 @@ You can securely store and manage the required credentials in Azure Key Vault an
 ## Functions
 #### [Connect-IDNW](/Documentation/Connect-IDNW.md)
 Connects to IdentityNow.
-#### [Disconnect-IDNW](Documentation/Disconnect-IDNW.md)
+#### [Disconnect-IDNW](/Documentation/Disconnect-IDNW.md)
 Disconnects from IdentityNow.
-#### [Get-IDNWObject](Documentation/Get-IDNWObject.md)
+#### [Get-IDNWObject](/Documentation/Get-IDNWObject.md)
 Get the specified objects from IdentityNow.
-#### [Get-IDNWOrg](Documentation/Get-IDNWOrg.md)
+#### [Get-IDNWOrg](/Documentation/Get-IDNWOrg.md)
 Get the IdentityNow Organisation.
-#### [Invoke-IDNWRestMethod](Documentation/Invoke-IDNWRestMethod.md)
+#### [Invoke-IDNWRestMethod](/Documentation/Invoke-IDNWRestMethod.md)
 Invoke the IdentityNow REST API.
-#### [New-IDNWObject](Documentation/New-IDNWObject.md)
+#### [New-IDNWObject](/Documentation/New-IDNWObject.md)
 Create a new object in IdentityNow.
-#### [Remove-IDNWObject](Documentation/Remove-IDNWObject.md)
+#### [Remove-IDNWObject](/Documentation/Remove-IDNWObject.md)
 Delete an object in IdentityNow.
-#### [Set-IDNWObject](Documentation/Set-IDNWObject.md)
+#### [Set-IDNWObject](/Documentation/Set-IDNWObject.md)
 Update an object in IdentityNow.
 
 ## Reporting Issues and Feedback
