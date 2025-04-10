@@ -29,7 +29,7 @@ function Test-IDNWFilter {
         $operator = $Filter['operator'].ToLower()
 
         # Operators that don't require a 'value'
-        $noValueOperators = @('pr', 'isnull')
+        $noValueOperators = @('pr', 'present', 'isnull')
 
         if ($operator -in $noValueOperators) {
             if ($Filter.ContainsKey('value') -and $null -ne $Filter['value']) {
