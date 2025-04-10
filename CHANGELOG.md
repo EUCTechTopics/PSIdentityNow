@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.5.1] - 2025-04-10
 
-### Changed
+### Fixed
 
 - Added 'present' to noValueOperators in Test-IDNWFilter ([#40](https://github.com/EUCTechTopics/PSIdentityNow/pull/40))
 
