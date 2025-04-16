@@ -2,10 +2,10 @@
 Describe "Get-IDNWEnvironment" {
 
     BeforeAll {
-        . "../PSIdentityNow/PSIdentityNow/Private/Get-IDNWEnvironment.ps1"
-        . "../PSIdentityNow/PSIdentityNow/Private/Get-IDNWSecret.ps1"
-        . "../PSIdentityNow/PSIdentityNow/Private/Get-IDNWSessionToken.ps1"
-        . "../PSIdentityNow/PSIdentityNow/Private/Get-IDNWTokenDetail.ps1"
+        . "../PSIdentityNow/Private/Get-IDNWEnvironment.ps1"
+        . "../PSIdentityNow/Private/Get-IDNWSecret.ps1"
+        . "../PSIdentityNow/Private/Get-IDNWSessionToken.ps1"
+        . "../PSIdentityNow/Private/Get-IDNWTokenDetail.ps1"
     }
 
     It "Should return a valid token" {

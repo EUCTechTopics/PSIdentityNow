@@ -2,8 +2,8 @@
 Describe "Get-IDNWFilterString" {
 
     BeforeAll {
-        . "../PSIdentityNow/PSIdentityNow/Private/Get-IDNWFilterString.ps1"
-        . "../PSIdentityNow/PSIdentityNow/Private/Test-IDNWFilter.ps1"
+        . "../PSIdentityNow/Private/Get-IDNWFilterString.ps1"
+        . "../PSIdentityNow/Private/Test-IDNWFilter.ps1"
     }
 
     It "should handle string values correctly" {
