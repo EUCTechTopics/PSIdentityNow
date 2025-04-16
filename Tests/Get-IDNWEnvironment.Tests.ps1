@@ -9,7 +9,7 @@ Describe "Get-IDNWEnvironment" {
     }
 
     It "Should return a valid token" {
-        $Environment = Get-IDNWEnvironment -Instance "ACC" -ApiVersion "v3" -UseSecretManagement:$false
+        $Environment = Get-IDNWEnvironment -ApiVersion "v3" -UseSecretManagement:$false
         $Environment.SessionToken | Should -BeOfType "System.Security.SecureString"
         [guid]$Environment.SessionTokenDetails.tenant_id | Should -BeOfType "System.Guid"
     }
