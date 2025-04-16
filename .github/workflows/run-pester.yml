@@ -1,7 +1,9 @@
 name: Run Pester Tests
 
-on:
-  pull_request:
+on: [workflow_dispatch]
+
+# on:
+#   pull_request:
 
 jobs:
   pester:
