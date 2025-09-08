@@ -112,7 +112,7 @@ function Invoke-IDNWRestMethod {
     # Pagination loop
     do {
         # Combine parameters into query string
-        if ($Method -eq "GET") {
+        if ($Method -in @("GET","POST")) {
             $queryString = ($UrlParams.GetEnumerator() | ForEach-Object {
                 [string]::Format("{0}={1}", $_.Key, [uri]::EscapeUriString($_.Value))
             }) -join "&"
