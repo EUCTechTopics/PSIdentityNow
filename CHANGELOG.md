@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 
+## [0.5.2] - 2025-09-08
+
+### Fixed
+
+- Added 'post' to methods for pagination in Invoke-IDNWRestMethod ([#45](https://github.com/EUCTechTopics/PSIdentityNow/pull/45))
+
+[0.5.2]: https://github.com/EUCTechTopics/PSIdentityNow/releases/tag/v0.5.2
+
 ## [0.5.1] - 2025-04-10
 
 ### Fixed
